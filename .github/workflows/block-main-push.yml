@@ -13,7 +13,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "🚨 *Main Branch Push Detected!*",
+              "text": "🚨 **${{ github.actor }}가 ${{ github.repository }} 프로젝트의 Main Branch로 푸시를 시도했습니다!**",
               "attachments": [
                 {
                   "color": "#ff0000",
