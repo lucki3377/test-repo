@@ -5,11 +5,32 @@ on:
       - main
 
 jobs:
-  block:
+  notify:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' # PR이 아닌 직접 push일 때만 실행
     steps:
-      - name: Reject push
-        run: |
-          echo "Main 브랜치로의 직접 푸시는 금지되어 있습니다. PR을 이용해 주세요!"
-          exit 1
+      - name: Send Slack Message
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "🚨 *Main Branch Push Detected!*",
+              "attachments": [
+                {
+                  "color": "#ff0000",
+                  "fields": [
+                    {
+                      "title": "Pusher",
+                      "value": "${{ github.actor }}",
+                      "short": true
+                    },
+                    {
+                      "title": "Commit Message",
+                      "value": "${{ github.event.head_commit.message }}",
+                      "short": false
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
