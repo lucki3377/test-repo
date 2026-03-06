@@ -15,7 +15,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "🚨 ${{ github.actor }}가 ${{ github.repository }} 프로젝트의 Main Branch로 push 했습니다!",
+              "text": "🚨 **${{ github.actor }}**가 **${{ github.repository }}** 프로젝트의 Main Branch로 push 했습니다!",
               "attachments": [
                 {
                   "color": "#ff0000",
