@@ -10,29 +10,3 @@ jobs:
     if: |
       github.actor != 'abulafian'
     steps:
-      - name: Send Slack Message
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          payload: |
-            {
-              "text": "🚨 **${{ github.actor }}**가 **${{ github.repository }}** 프로젝트의 Main Branch로 push 했습니다!",
-              "attachments": [
-                {
-                  "color": "#ff0000",
-                  "fields": [
-                    {
-                      "title": "Pusher",
-                      "value": "${{ github.actor }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Commit Message",
-                      "value": "${{ github.event.head_commit.message }}",
-                      "short": false
-                    }
-                  ]
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
