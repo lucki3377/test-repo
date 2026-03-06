@@ -1,0 +1,15 @@
+name: Block Direct Push to Main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  block:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' # PR이 아닌 직접 push일 때만 실행
+    steps:
+      - name: Reject push
+        run: |
+          echo "Main 브랜치로의 직접 푸시는 금지되어 있습니다. PR을 이용해 주세요!"
+          exit 1
